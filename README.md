@@ -30,5 +30,8 @@ sudo insmod l2_2.ko str1="  hello  world!    " str2="toi Yeu KMA"
 #### LAB 3
 sudo insmod l3_1.ko v1=1,2 v2=3,4 vsize=2 matrix1=1,2,3,4 row1=2 col1=2 matrix2=5,6,7,8 row2=2 col2=2
 
+sudo insmod l3_2.ko XauRo=HELLO K=43120
+sudo insmod l3_2.ko XauRo=HELLO K=03124
+sudo insmod l3_2.ko XauRo=HELLO K=QWERTYUIOPASDFGHJKLZXCVBNM
 ```
 

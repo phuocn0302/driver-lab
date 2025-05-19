@@ -16,54 +16,22 @@ module_param_string(XauRo, XauRo, sizeof(XauRo), 0);
 module_param_string(K, K, sizeof(K), 0);
 
 static void ma_hoa_chuyen_vi(void) {
-  int len = strlen(XauRo);
-  int klen = strlen(K);
-  int rows;
-  int cols;
-  int i, j;
-  int key;
+  int i, len = strlen(XauRo);
+  int shift = 0;
 
-  if (klen <= 0 || klen > len) {
-    printk(KERN_ERR "Invalid key: must be >0 and <= length of data\n");
+  if (kstrtoint(K, 10, &shift) != 0) {
+    printk(KERN_ERR "Invalid Caesar key\n");
     return;
   }
 
-  key = 0;
-  for (i = 0; i < klen; i++) {
-    if (K[i] < '0' || K[i] > '9') {
-      printk(KERN_ERR "Key must be numeric\n");
-      return;
-    }
-    key = key * 10 + (K[i] - '0');
-  }
-
-  if (key <= 0) {
-    printk(KERN_ERR "Invalid key number\n");
-    return;
-  }
-
-  rows = key;
-  cols = (len + rows - 1) / rows;
-
-  char matrix[rows][cols];
-  int idx = 0;
-
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < cols; j++) {
-      if (idx < len)
-        matrix[i][j] = XauRo[idx++];
-      else
-        matrix[i][j] = ' '; // padding
+  for (i = 0; i < len; i++) {
+    if (XauRo[i] >= 'A' && XauRo[i] <= 'Z') {
+      XauMa[i] = ((XauRo[i] - 'A' + shift) % 26) + 'A';
+    } else {
+      XauMa[i] = XauRo[i];  // leave non-uppercase letters unchanged
     }
   }
-
-  idx = 0;
-  for (j = 0; j < cols; j++) {
-    for (i = 0; i < rows; i++) {
-      XauMa[idx++] = matrix[i][j];
-    }
-  }
-  XauMa[idx] = '\0';
+  XauMa[len] = '\0';
 
   printk(KERN_INFO "Ma hoa chuyen vi: %s\n", XauMa);
 }
