@@ -160,6 +160,9 @@ static int __init m_init(void) {
   ret = dec_to_hex(decimal, buf);
   printk(KERN_INFO "Decimal %d to Hex: %s\n", decimal, buf);
 
+  ret = dec_to_bin(hex_to_dec(hex), buf);
+  printk(KERN_INFO "Hex %s to bin: %s\n", hex, buf);
+
   return 0;
 }
 
