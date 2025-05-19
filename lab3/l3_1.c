@@ -38,19 +38,19 @@ static int dot_product(int v1[], int v2[], int size) {
   return result;
 }
 
-static void matrix_add(int *m1, int *m2, int size, int *ret) {
+static void matrix_add(int m1[], int m2[], int size, int *ret) {
   int i;
   for (i = 0; i < size; i++)
     ret[i] = m1[i] + m2[i];
 }
 
-static void matrix_sub(int *m1, int *m2, int size, int *ret) {
+static void matrix_sub(int m1[], int m2[], int size, int *ret) {
   int i;
   for (i = 0; i < size; i++)
     ret[i] = m1[i] - m2[i];
 }
 
-static void matrix_mul(int *m1, int *m2, int *ret, int r1, int c1, int c2) {
+static void matrix_mul(int m1[], int m2[], int *ret, int r1, int c1, int c2) {
   int i, j, k;
   for (i = 0; i < r1; i++) {
     for (j = 0; j < c2; j++) {
